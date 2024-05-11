@@ -10,10 +10,11 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeViewController" customModule="MovieApp" customModuleProvider="target">
             <connections>
+                <outlet property="imageScrollView" destination="I6q-TS-B0Q" id="gRZ-od-8dx"/>
                 <outlet property="imageView" destination="6bT-p6-ttH" id="9fv-T7-KaS"/>
                 <outlet property="pageControl" destination="Uu3-mw-gA5" id="yxi-NX-W2C"/>
-                <outlet property="scrollView" destination="I6q-TS-B0Q" id="gRZ-od-8dx"/>
                 <outlet property="slider" destination="6kR-LZ-G8A" id="wUO-GQ-k8C"/>
+                <outlet property="tableScrollView" destination="LqB-Qb-R42" id="vJf-Ua-BZV"/>
                 <outlet property="tableView" destination="6d4-vI-jzu" id="cRJ-ID-Q7x"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -24,29 +25,37 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="I6q-TS-B0Q">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="259"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <slider hidden="YES" opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="6kR-LZ-G8A">
-                            <rect key="frame" x="137" y="129" width="118" height="30"/>
+                            <rect key="frame" x="137" y="115" width="118" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </slider>
-                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="TheGreatBeauty" translatesAutoresizingMaskIntoConstraints="NO" id="6bT-p6-ttH">
-                            <rect key="frame" x="0.0" y="0.0" width="393" height="258"/>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="MoonRiseKingdom" translatesAutoresizingMaskIntoConstraints="NO" id="6bT-p6-ttH">
+                            <rect key="frame" x="0.0" y="1" width="393" height="258"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </imageView>
-                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6d4-vI-jzu">
-                            <rect key="frame" x="0.0" y="255" width="393" height="590"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        </tableView>
                         <pageControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="Uu3-mw-gA5">
-                            <rect key="frame" x="138" y="221" width="116" height="26"/>
+                            <rect key="frame" x="137" y="225" width="116" height="26"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         </pageControl>
                     </subviews>
                     <viewLayoutGuide key="contentLayoutGuide" id="Xyj-p9-Cr8"/>
                     <viewLayoutGuide key="frameLayoutGuide" id="rNF-wl-rhc"/>
+                </scrollView>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LqB-Qb-R42">
+                    <rect key="frame" x="0.0" y="257" width="393" height="595"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="6d4-vI-jzu">
+                            <rect key="frame" x="0.0" y="5" width="393" height="590"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        </tableView>
+                    </subviews>
+                    <viewLayoutGuide key="contentLayoutGuide" id="dvw-Tv-6hg"/>
+                    <viewLayoutGuide key="frameLayoutGuide" id="tYQ-Fs-gxn"/>
                 </scrollView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -55,7 +64,7 @@
         </view>
     </objects>
     <resources>
-        <image name="TheGreatBeauty" width="104" height="104"/>
+        <image name="MoonRiseKingdom" width="375" height="256"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
