@@ -8,21 +8,15 @@
 import UIKit
 import Alamofire
 
-class HomeViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate, MovieTableViewCellDelegate {
-    
-    func didTapButtonIcon(with movie: Movie?) {
-        guard let movie = movie else {
-                   return
-               }
-        
-        let detailVC = DetailViewController()
-                detailVC.movie = movie
-                navigationController?.pushViewController(detailVC, animated: true)
-    }
-    
+class HomeViewController: UIViewController, UIScrollViewDelegate, UITableViewDataSource, UITableViewDelegate {
     
     var movies: [Movie] = []
     var collectionView: UICollectionView!
+    var imageNames: [String] = []
+    var viewModel: HomeViewModel!
+    var selectedMovie: Movie?
+    var receivedData: Data?
+    var upcomingMovies: [Movie] = []
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 4
@@ -35,18 +29,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
            let imageName = imageNames[indexPath.row % imageNames.count] // Dizinin sınırlarını aşmak için % operatörü kullanılır
            cell.movieImageView.image = UIImage(named: imageName)
         
-        
-        // UIButton yerine Bool türünde bir özellik
-        var buttonTapped: Bool = false {
-            didSet {
-                // buttonTapped özelliği değiştiğinde yapılacak işlemler burada
-                if buttonTapped {
-                    // Butona tıklandığında yapılacak işlemler burada
-                } else {
-                    // Butona tıklanmadığında yapılacak işlemler burada
-                }
-            }
-        }
+        cell.parentViewController = self
         return cell
     }
     
@@ -56,8 +39,6 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
     }
     
     
-    
-    
     @IBOutlet weak var imageScrollView: UIScrollView!
     @IBOutlet weak var slider: UISlider!
     @IBOutlet weak var imageView: UIImageView!
@@ -65,11 +46,13 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
     @IBOutlet weak var tableScrollView: UIScrollView!
     @IBOutlet weak var pageControl: UIPageControl!
     
-    var imageNames = ["GreenBokk.jpg", "TheGreatBeauty.jpg", "ThereWillBeBlood.jpg", "AmericanBeauty.jpg"]
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        imageNames = ["GreenBokk.jpg", "TheGreatBeauty.jpg", "ThereWillBeBlood.jpg", "AmericanBeauty.jpg"]
+                
         
         // Üst Scroll View konfigürasyonu
         imageScrollView.contentSize = CGSize(width: view.frame.width * CGFloat(imageNames.count), height: imageView.frame.maxY)
@@ -86,12 +69,7 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
             imageScrollView.addSubview(imageView)
         }
         
-        
-        // Alt Scroll View'in içindeki TableView'ın boyutunu ayarlama
-        tableView.frame = CGRect(x: 0, y: 0, width: tableScrollView.frame.width, height: tableScrollView.frame.height)
-        
-        
-        // TableView konfigürasyonu
+        // TableView
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: "MovieTableViewCell", bundle: nil), forCellReuseIdentifier: "MovieTableViewCell")
@@ -99,9 +77,10 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
         // Alt Scroll View içeriğinin boyutunu ayarlayalım
         tableScrollView.contentSize = tableView.frame.size
         tableScrollView.addSubview(tableView)
+        // Alt Scroll View'in içindeki TableView'ın boyutunu ayarlayalım
+        tableView.frame = CGRect(x: 0, y: 0, width: tableScrollView.frame.width, height: tableScrollView.frame.height)
     }
     
-   
     
     private func setupScrollView() {
         var contentWidth: CGFloat = 0
@@ -118,11 +97,26 @@ class HomeViewController: UIViewController, UIScrollViewDelegate, UITableViewDat
         imageScrollView.contentSize = CGSize(width: contentWidth, height: imageScrollView.frame.size.height)
     }
 
+    func parseMovie(json: [String: Any]) -> Movie? {
+        do {
+            let jsonData = try JSONSerialization.data(withJSONObject: json, options: [])
+            let movie = try JSONDecoder().decode(Movie.self, from: jsonData)
+            return movie
+        } catch {
+            print("JSON çözme hatası")
+            return nil
+        }
+    }
+    
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let pageIndex = Int(round(scrollView.contentOffset.x / scrollView.frame.size.width))
-        pageControl.currentPage = pageIndex
-    }
-    
+            pageControl.currentPage = pageIndex
+            
+            // Slider'ın değerini ayarlama
+            let maxOffsetY = scrollView.contentSize.height - scrollView.bounds.height
+            let sliderValue = min(max(scrollView.contentOffset.y, 0) / maxOffsetY, 1.0) // Değer 0 ile 1 arasında olmalı
+            slider.value = Float(sliderValue)
+        }
     
 }

@@ -7,15 +7,10 @@
 
 import UIKit
 
-protocol MovieTableViewCellDelegate: AnyObject {
-    func didTapButtonIcon(with movie: Movie?)
-}
-
-
 class MovieTableViewCell: UITableViewCell {
     
     var movie: Movie?
-    weak var delegate: MovieTableViewCellDelegate?
+    weak var parentViewController: UIViewController?
     
     @IBOutlet weak var movieImageView: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
@@ -23,37 +18,33 @@ class MovieTableViewCell: UITableViewCell {
     @IBOutlet weak var date: UILabel!
     @IBOutlet weak var buttonTapped: UIButton!
     
-    var buttonIcon: (() -> Void)? // buttonTapped closure'u
+    var buttonIcon: (() -> Void)?
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
         
-    }
-    
-    @IBAction func buttonIcon(_ sender: Any) {
-        print("Button tapped!")
-        guard let movie = movie else {
-            return
+        movieImageView.layer.cornerRadius = movieImageView.frame.height / 4 //  görüntüyü oval yapar
         }
-        delegate?.didTapButtonIcon(with: movie)
-        
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let detailVC = storyboard.instantiateViewController(withIdentifier: "detailVC") as! DetailViewController
-        
-        detailVC.movie = movie
-        
-        // Yönlendirme işlemi
-        if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
-            navigationController.pushViewController(detailVC, animated: true)
-        }
-    }
     
-    
-    
-}
+    @IBAction func buttonTapped(_ sender: Any) {
+        print("Button is tapped!")
+               guard let movie = movie else {
+                   return
+               }
+               
+               let storyboard = UIStoryboard(name: "Main", bundle: nil)
+               let detailVC = storyboard.instantiateViewController(withIdentifier: "detailVC") as! DetailViewController
+               
+               detailVC.movie = movie
+               
+               // Yönlendirme işlemi
+               if let navigationController = UIApplication.shared.keyWindow?.rootViewController as? UINavigationController {
+                   navigationController.pushViewController(detailVC, animated: true)
+               }
+           }
+       }
