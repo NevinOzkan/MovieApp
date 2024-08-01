@@ -6,36 +6,26 @@
 //
 
 import UIKit
+import Alamofire
 
 class MainVC: UIViewController {
     
-    private var movies: [Movie] = []
-    private let serviceManager = ServiceManager()
+    private let viewModel = MainVM()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         fetchUpcomingMovies()
     }
-    
     private func fetchUpcomingMovies() {
-        let serviceManager = ServiceManager()
-        serviceManager.fetchUpcomingMovies { [weak self] result in
-            switch result {
-            case .success(let data):
-                do {
-                    let decoder = JSONDecoder()
-                    let response = try decoder.decode(MovieResponse.self, from: data)
-                    self?.movies = response.results
+            viewModel.fetchUpcomingMovies { [weak self] result in
+                switch result {
+                case .success():
                     DispatchQueue.main.async {
-                        
+                    
                     }
-                } catch {
-                    print("JSON decode error: \(error)")
+                case .failure(let error):
+                    print("Failed to fetch movies: \(error)")
                 }
-            case .failure(let error):
-                print("Network error: \(error)")
             }
         }
-    }
 }
