@@ -10,7 +10,7 @@ import Alamofire
 final class MainVM {
     
     private var serviceManager = ServiceManager()
-    private(set) var movies: [Movie] = []
+    private var movies: [Movie] = []
     
     func fetchUpcomingMovies(completion: @escaping (Result<Void, Error>) -> Void) {
         serviceManager.fetchUpcomingMovies { result in

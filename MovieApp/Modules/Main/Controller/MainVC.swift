@@ -13,30 +13,31 @@ class MainVC: UIViewController {
     var movies: [Movie] = []
     var viewModel = MainVM()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchUpcomingMovies()
+        
     }
     
     private func fetchUpcomingMovies() {
         let serviceManager = ServiceManager()
-        serviceManager.fetchUpcomingMovies { [weak self] result in
-            switch result {
-            case .success(let data):
-                do {
-                    let decoder = JSONDecoder()
-                    let response = try decoder.decode(MovieResponse.self, from: data)
-                    self?.movies = response.results
-                    DispatchQueue.main.async {
-                        print(response.results)
+            serviceManager.fetchUpcomingMovies { [weak self] result in
+                switch result {
+                case .success(let data):
+                    do {
+                        let decoder = JSONDecoder()
+                        let response = try decoder.decode(MovieResponse.self, from: data)
+                        self?.movies = response.results
+                        DispatchQueue.main.async {
+                            print(response.results)
+                        }
+                    } catch {
+                        print("JSON decode error: \(error)")
                     }
-                } catch {
-                    print("JSON decode error: \(error)")
+                    
+                case .failure(let error):
+                    print("Failed to fetch movies: \(error)")
                 }
-                
-            case .failure(let error):
-                print("Failed to fetch movies: \(error)")
             }
         }
     }
-}
