@@ -10,7 +10,8 @@ import Alamofire
 
 private let apiKey = "1ae0a7f53c245e3bc03196612d1e663a"
 private let baseURL = "https://api.themoviedb.org/3/movie/upcoming"
-    
+
+
 final class ServiceManager {
     
     func fetchUpcomingMovies(completion: @escaping (Result<Data, AFError>) -> Void) {
@@ -20,8 +21,7 @@ final class ServiceManager {
         ]
         
         let headers: HTTPHeaders = [
-            "accept": "application/json",
-            "Authorization": "Bearer \(apiKey)"
+            "Authorization": "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxYWUwYTdmNTNjMjQ1ZTNiYzAzMTk2NjEyZDFlNjYzYSIsIm5iZiI6MTcyMjQyNzk0OS40NDQwNjYsInN1YiI6IjY1YzhhNDllYWFkOWMyMDE3ZGI4MmVjZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.kX2vPm9mau3UH-XQN1LF3PuQBld6PIf4OMyuRfd1AjA"
         ]
         
         AF.request(baseURL, parameters: parameters, headers: headers)

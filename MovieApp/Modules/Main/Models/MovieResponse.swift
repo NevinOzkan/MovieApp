@@ -11,7 +11,6 @@ struct MovieResponse: Decodable {
     let dates: Dates
     let page: Int
     let results: [Movie]
-
    
     private enum CodingKeys: String, CodingKey {
         case dates

@@ -20,9 +20,10 @@ class MainVC: UIViewController {
             viewModel.fetchUpcomingMovies { [weak self] result in
                 switch result {
                 case .success():
-                    DispatchQueue.main.async {
+                        DispatchQueue.main.async {
+                            print("response")
+                        }
                     
-                    }
                 case .failure(let error):
                     print("Failed to fetch movies: \(error)")
                 }
