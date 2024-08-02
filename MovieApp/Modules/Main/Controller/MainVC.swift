@@ -11,7 +11,8 @@ import Alamofire
 class MainVC: UIViewController {
     
     var movies: [Movie] = []
-
+    var viewModel = MainVM()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         fetchUpcomingMovies()
