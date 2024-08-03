@@ -15,7 +15,9 @@ class MainVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        viewModel.fetchUpcomingMovies()
+        viewModel.fetchUpcomingMovies() {
+            
+        }
             
     }
     
