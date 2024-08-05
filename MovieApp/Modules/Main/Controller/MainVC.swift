@@ -20,8 +20,7 @@ class MainVC: UIViewController {
         }
         
         viewModel.fetchNowPlayingMovies() {
-                    // Burada now-playing movies verisini işleyebilirsiniz
-                }
+    }
     }
     
 }
