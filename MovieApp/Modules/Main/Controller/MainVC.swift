@@ -18,9 +18,10 @@ class MainVC: UIViewController {
         viewModel.fetchUpcomingMovies() {
             
         }
-            
+        
+        viewModel.fetchNowPlayingMovies() {
+                    // Burada now-playing movies verisini işleyebilirsiniz
+                }
     }
     
-    
-        }
-    
+}
