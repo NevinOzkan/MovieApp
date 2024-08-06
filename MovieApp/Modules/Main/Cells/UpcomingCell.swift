@@ -8,12 +8,12 @@
 import UIKit
 
 final class UpcomingCell: UITableViewCell {
-
+    
     @IBOutlet private weak var movieImageView: UIImageView!
     @IBOutlet private weak var movieTitleLabel: UILabel!
     @IBOutlet private weak var movieDescriptionLabel: UILabel!
     @IBOutlet private weak var movieDateLabel: UILabel!
-
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -22,6 +22,7 @@ final class UpcomingCell: UITableViewCell {
     func prepareCell(with model: Movie) {
         movieTitleLabel.text = model.title
         movieDateLabel.text = model.releaseDate
-       
+        movieDescriptionLabel.text = model.overview
+        
     }
 }
