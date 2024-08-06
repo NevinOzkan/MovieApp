@@ -8,20 +8,27 @@ import Foundation
 
 final class MainVM {
     
+    enum CellType {
+        case nowPlaying
+        case upcoming
+    }
+    
     private var serviceManager = ServiceManager()
     private(set) var upcomingMovies: [Movie] = []
     private(set) var nowPlayingMovies: [Movie] = []
+    var cellTypes: [CellType] = []
     
     func fetchUpcomingMovies(completion: @escaping () -> Void) {
-        serviceManager.fetchUpcomingMovies { [weak self] result in
+        serviceManager.fetchUpcomingMovies { result in
             switch result {
             case .success(let movies):
-                DispatchQueue.main.async {
-                    self?.upcomingMovies = movies
+                DispatchQueue.main.async { [weak self] in
+                    guard let self else { return }
+                    upcomingMovies = movies
+                    cellTypes.append(.upcoming)
                     print(movies)
                     completion()
                 }
-                
             case .failure(let error):
                 print("Failed to fetch movies: \(error)")
             }

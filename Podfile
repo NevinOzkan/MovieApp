@@ -7,4 +7,5 @@ target 'MovieApp' do
 
   # Pods for MovieApp
     pod 'Alamofire', '~> 5.6'
+    pod 'SDWebImage', '~> 5.0'
 end

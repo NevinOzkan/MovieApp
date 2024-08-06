@@ -7,17 +7,21 @@
 
 import UIKit
 
-class UpcomingCell: UITableViewCell {
+final class UpcomingCell: UITableViewCell {
+
+    @IBOutlet private weak var movieImageView: UIImageView!
+    @IBOutlet private weak var movieTitleLabel: UILabel!
+    @IBOutlet private weak var movieDescriptionLabel: UILabel!
+    @IBOutlet private weak var movieDateLabel: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
     
+    func prepareCell(with model: Movie) {
+        movieTitleLabel.text = model.title
+        movieDateLabel.text = model.releaseDate
+       
+    }
 }
