@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 final class UpcomingCell: UITableViewCell {
     
@@ -16,13 +17,17 @@ final class UpcomingCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+
     }
-    
+
     func prepareCell(with model: Movie) {
         movieTitleLabel.text = model.title
         movieDateLabel.text = model.releaseDate
         movieDescriptionLabel.text = model.overview
-        
+        // Resmi yükler.
+        if let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500" + model.posterPath!) {
+                   movieImageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder"))
+           
+               }
     }
 }

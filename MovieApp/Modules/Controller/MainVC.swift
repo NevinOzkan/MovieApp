@@ -12,6 +12,7 @@ final class MainVC: UIViewController {
     @IBOutlet private weak var tableView: UITableView!
     
     var viewModel = MainVM()
+    var movies: [Movie] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()

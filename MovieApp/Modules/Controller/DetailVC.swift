@@ -9,10 +9,7 @@ import UIKit
 
 class DetailVC: UIViewController {
     
-    var id : Int? = nil
-    var imageUrl = URL(string: "")
-    var movie : Movie?
-    
+   
     @IBOutlet weak var movieImage: UIImageView!
     @IBOutlet weak var imdbImage: UIImageView!
     @IBOutlet weak var movieDetail: UILabel!

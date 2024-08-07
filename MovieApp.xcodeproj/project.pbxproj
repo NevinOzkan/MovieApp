@@ -144,8 +144,7 @@
 		A676BC3E2C5A60D200BB034D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				A6B5918B2C60E5F500C91297 /* DetailVC.swift */,
-				A6B5918C2C60E5F500C91297 /* DetailVC.xib */,
+				A676BC402C5A60E200BB034D /* Controller */,
 				A676BC3F2C5A60DB00BB034D /* Main */,
 			);
 			path = Modules;
@@ -156,7 +155,6 @@
 			children = (
 				A6B591982C60EC4C00C91297 /* Cells */,
 				A6B718A72C5BFA3B00916FFE /* Models */,
-				A676BC402C5A60E200BB034D /* Controller */,
 				A676BC472C5A633E00BB034D /* ViewModel */,
 			);
 			path = Main;
@@ -167,6 +165,8 @@
 			children = (
 				A676BC3A2C5A60CD00BB034D /* MainVC.swift */,
 				A676BC3B2C5A60CD00BB034D /* MainVC.xib */,
+				A6B5918B2C60E5F500C91297 /* DetailVC.swift */,
+				A6B5918C2C60E5F500C91297 /* DetailVC.xib */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
