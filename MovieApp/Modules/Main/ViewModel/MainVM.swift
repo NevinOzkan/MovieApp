@@ -18,6 +18,8 @@ final class MainVM {
     private(set) var nowPlayingMovies: [Movie] = []
     var cellTypes: [CellType] = []
     
+    
+    // Filmleri çekip ve güncelledim
     func fetchUpcomingMovies(completion: @escaping () -> Void) {
         serviceManager.fetchUpcomingMovies { result in
             switch result {

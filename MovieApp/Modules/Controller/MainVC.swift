@@ -14,12 +14,16 @@ final class MainVC: UIViewController {
     var viewModel = MainVM()
     var movies: [Movie] = []
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCells()
         fetchMovies()
+        tableView.delegate = self
+        tableView.dataSource = self
     }
     
+    //tableviewda kullanmak için kaydettim.
     private func registerCells() {
         let upCominCellName = String(describing: UpcomingCell.self)
         let upComingCellNib = UINib(nibName: upCominCellName, bundle: .main)
@@ -36,11 +40,10 @@ final class MainVC: UIViewController {
             
         }
     }
-    
-
 }
 
-extension MainVC: UITableViewDataSource {
+extension MainVC: UITableViewDataSource, UITableViewDelegate {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return viewModel.cellTypes.count
     }
@@ -64,6 +67,21 @@ extension MainVC: UITableViewDataSource {
             return UITableViewCell()
         }
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+            switch viewModel.cellTypes[indexPath.section] {
+            case .nowPlaying:
+                // Şu an oynayan filmlerle ilgili bir geçiş ekleyebilirsiniz
+                break
+            case .upcoming:
+                let selectedMovie = viewModel.upcomingMovies[indexPath.row]
+                navigateToDetailVC(with: selectedMovie)
+            }
+        }
+        
+        private func navigateToDetailVC(with movie: Movie) {
+            let detailVC = DetailVC(nibName: "DetailVC", bundle: nil)
+            detailVC.movie = movie
+            navigationController?.pushViewController(detailVC, animated: true)
+        }
 }
-
-

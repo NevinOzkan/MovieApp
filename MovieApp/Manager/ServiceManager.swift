@@ -46,7 +46,7 @@ final class ServiceManager {
     func fetchNowPlayingMovies(completion: @escaping (Result<[Movie], Error>) -> Void) {
         let parameters: [String: String] = [
             "language": "en-US",
-            "page": "1"
+            "page": "2"
         ]
         
         let headers: HTTPHeaders = [

@@ -15,11 +15,12 @@ final class UpcomingCell: UITableViewCell {
     @IBOutlet private weak var movieDescriptionLabel: UILabel!
     @IBOutlet private weak var movieDateLabel: UILabel!
     
+
     override func awakeFromNib() {
         super.awakeFromNib()
-
     }
 
+    //Cell içinde görünecekler.
     func prepareCell(with model: Movie) {
         movieTitleLabel.text = model.title
         movieDateLabel.text = model.releaseDate

@@ -32,7 +32,7 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdfkj sbkj sfn kjfn ksjdskjfnsdkjdkjn fskdjnskjdn skjnsfdkjnsdkjfnsdksk" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGr-mw-Olw">
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="sdfkj sbkj sfn kjfn ksjdskjfnsdkjdkjn fskdjnskjdn skjnsfdkjnsdkjfnsdksk" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" enabled="NO" highlighted="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yGr-mw-Olw">
                         <rect key="frame" x="104" y="43.333333333333343" width="244" height="36.666666666666657"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <nil key="textColor"/>
@@ -70,7 +70,7 @@
                 <outlet property="movieImageView" destination="vsr-DN-ELk" id="yFz-MJ-Nqw"/>
                 <outlet property="movieTitleLabel" destination="iSk-Sg-WCz" id="R16-rP-r6C"/>
             </connections>
-            <point key="canvasLocation" x="103.81679389312977" y="130.28169014084509"/>
+            <point key="canvasLocation" x="-116" y="123"/>
         </tableViewCell>
     </objects>
 </document>
