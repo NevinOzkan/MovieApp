@@ -10,26 +10,26 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" restorationIdentifier="MovieCollectionViewCell" id="gTV-IL-0wX" customClass="MovieCollectionViewCell" customModule="MovieApp" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="396" height="242"/>
+            <rect key="frame" x="0.0" y="0.0" width="396" height="262"/>
             <autoresizingMask key="autoresizingMask"/>
             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                <rect key="frame" x="0.0" y="0.0" width="396" height="242"/>
+                <rect key="frame" x="0.0" y="0.0" width="396" height="262"/>
                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V5W-l4-Lmx">
-                        <rect key="frame" x="0.0" y="0.0" width="396" height="242"/>
+                        <rect key="frame" x="0.0" y="0.0" width="396" height="262"/>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRk-La-dHx">
-                        <rect key="frame" x="11" y="156" width="375" height="24"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Overview" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sI2-gU-NUe">
+                        <rect key="frame" x="17" y="210" width="362" height="32"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Overview" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sI2-gU-NUe">
-                        <rect key="frame" x="14" y="190" width="362" height="32"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Title" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kRk-La-dHx">
+                        <rect key="frame" x="11" y="185" width="375" height="24"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                         <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -42,13 +42,13 @@
                 <constraint firstItem="V5W-l4-Lmx" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="cMq-FT-cEz"/>
                 <constraint firstAttribute="trailing" secondItem="V5W-l4-Lmx" secondAttribute="trailing" id="vVD-qm-FcW"/>
             </constraints>
-            <size key="customSize" width="396" height="242"/>
+            <size key="customSize" width="396" height="262"/>
             <connections>
                 <outlet property="imageView" destination="V5W-l4-Lmx" id="VgU-YH-qBp"/>
                 <outlet property="movieOverview" destination="sI2-gU-NUe" id="EnE-uf-erl"/>
                 <outlet property="movieTitle" destination="kRk-La-dHx" id="NT5-dn-Uds"/>
             </connections>
-            <point key="canvasLocation" x="401.52671755725191" y="87.323943661971839"/>
+            <point key="canvasLocation" x="401.52671755725191" y="94.366197183098592"/>
         </collectionViewCell>
     </objects>
 </document>

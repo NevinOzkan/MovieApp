@@ -10,14 +10,14 @@ import UIKit
 class HomeVC: UIViewController {
     
     @IBOutlet weak var tableView: UITableView!
-    @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var sliderCollectionView: UICollectionView!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     var viewModel = HomeViewModel()
-    var nowPlayingMovies = [Movie]()
-    var upcomingMovies: [Movie] = []
     var movies: [Movie] = []
     var currentPage = 1
+    private var upcomingMovies = [Movie]()
+    private var nowPlayingMovies = [Movie]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,18 +29,23 @@ class HomeVC: UIViewController {
         sliderCollectionView.delegate = self
         sliderCollectionView.dataSource = self
 
-                if let layout = sliderCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-                    layout.scrollDirection = .horizontal // Yatay kaydırma
-                }
+        if let layout = sliderCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+               layout.scrollDirection = .horizontal // Yatay kaydırma
+               layout.minimumLineSpacing = 0 // Hücreler arasındaki boşluk sıfır
+               layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 250) // Hücre boyutu
+           }
+        
+        sliderCollectionView.isPagingEnabled = true // Sayfaları geçiş yaparken tam kapsama
+
+          
         
         fetchUpcomingMovies()
         fetchNowPlayingMovies()
         
-        pageControl.numberOfPages = 20
-        pageControl.currentPage = 0
-        
         pageControl.numberOfPages = nowPlayingMovies.count
-               pageControl.currentPage = 0
+        pageControl.currentPage = 0
+       
+        
     }
     
     private func fetchUpcomingMovies() {
@@ -66,6 +71,7 @@ class HomeVC: UIViewController {
                 self.nowPlayingMovies = movies
                 DispatchQueue.main.async {
                     self.sliderCollectionView.reloadData()
+                    self.pageControl.numberOfPages = self.nowPlayingMovies.count // Sayfa sayısını güncelle
                 }
             case .failure(let error):
                 print("Error fetching now playing movies: \(error)")
@@ -104,10 +110,14 @@ extension HomeVC: UITableViewDataSource, UITableViewDelegate {
         return 140
     }
     
-    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-            let pageIndex = round(scrollView.contentOffset.x / scrollView.frame.width)
-            pageControl.currentPage = Int(pageIndex)
-        }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+
+        let movie = upcomingMovies[indexPath.row]
+        
+        let vc = DetailVC(nibName: "DetailVC", bundle: Bundle.main)
+        vc.movieID = movie.id
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 
 
@@ -131,6 +141,24 @@ extension HomeVC: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: UIScreen.main.bounds.width, height: 250)
+        return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
     }
+    
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        0
+    }
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        // Page Control'ü güncelle
+        let pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
+        pageControl.currentPage = pageIndex
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let pageWidth = scrollView.frame.size.width
+        let currentPage = Int(scrollView.contentOffset.x / pageWidth)
+        pageControl.currentPage = currentPage
+    }
+
 }

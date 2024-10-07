@@ -20,6 +20,7 @@ class MovieCollectionViewCell: UICollectionViewCell {
         
     }
     
+    
     func prepareCell(with model: Movie) {
         movieTitle.text = model.title
         movieOverview.text = model.overview

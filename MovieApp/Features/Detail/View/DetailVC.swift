@@ -16,19 +16,14 @@ class DetailVC: UIViewController {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var voteLabel: UILabel!
     
-    var id : Int? = nil
     var movie: Movie?
     var movieID: Int?
-    
-    
+  
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
-
 
     
     @IBAction func ImdbButton(_ sender: Any) {
