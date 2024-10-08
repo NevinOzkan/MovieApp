@@ -32,6 +32,9 @@
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="Button"/>
                     <buttonConfiguration key="configuration" style="plain" image="Image 2"/>
+                    <connections>
+                        <action selector="ImdbButton:" destination="-1" eventType="touchUpInside" id="e2M-JD-y0i"/>
+                    </connections>
                 </button>
                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="star.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="6m1-so-P9h">
                     <rect key="frame" x="91" y="320.66666666666669" width="28" height="16"/>

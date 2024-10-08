@@ -61,4 +61,33 @@ class APIService{
                 }
             }
     }
+    
+    
+    // Yeni eklediğimiz film detaylarını çekmek için API fonksiyonu
+    func fetchMovieDetails(movieID: Int, completion: @escaping (Result<Movie, Error>) -> Void) {
+        let movieDetailsURL = "\(Constants.URL.movieDetailUrl)\(movieID)?api_key=\(Constants.API.apiKey)"
+        
+        AF.request(movieDetailsURL)
+            .validate()
+            .responseData { response in
+                switch response.result {
+                case .success(let data):
+                    do {
+                        let decoder = JSONDecoder()
+                        let movie = try decoder.decode(Movie.self, from: data)
+                        completion(.success(movie))
+                    } catch {
+                        print("Decoding error: \(error)")
+                        completion(.failure(error))
+                    }
+                case .failure(let error):
+                    print("Network error: \(error)")
+                    if let data = response.data, let errorResponse = String(data: data, encoding: .utf8) {
+                        print("Error response: \(errorResponse)")
+                    }
+                    completion(.failure(error))
+                }
+            }
+    }
+    
 }

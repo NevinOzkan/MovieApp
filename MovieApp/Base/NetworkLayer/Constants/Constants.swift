@@ -13,6 +13,7 @@ struct Constants {
         static let apıKey = "1ae0a7f53c245e3bc03196612d1e663a"
         static let upcomingUrl = "https://api.themoviedb.org/3/movie/upcoming"
         static let nowPlayingUrl = "https://api.themoviedb.org/3/movie/now_playing"
+        static let movieDetailUrl = "https://api.themoviedb.org/3/movie/"
     }
     
     struct Params {
