@@ -7,7 +7,7 @@
 
 import UIKit
 
-class DetailVC: UIViewController {
+class DetailVC: UIViewController, UIGestureRecognizerDelegate {
 
     
     @IBOutlet weak var imageView: UIImageView!
@@ -20,8 +20,11 @@ class DetailVC: UIViewController {
     var movieID: Int?
     private var viewModel = DetailViewModel()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationItem.hidesBackButton = true
+        
         setupUI()
         
         // Movie ID'nin boş olmadığını kontrol et
@@ -33,6 +36,15 @@ class DetailVC: UIViewController {
                 fetchMovieDetails(movieID: movieID) // Film detaylarını yükle
             
     }
+    
+    //Ekran kaydırılması.
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        self.navigationController?.interactivePopGestureRecognizer?.delegate = self
+        self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
+        
+    }
+  
 
     private func fetchMovieDetails(movieID: Int) {
         viewModel.fetchMovieDetails(movieID: movieID) { [weak self] result in
