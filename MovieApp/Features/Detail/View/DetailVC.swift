@@ -70,9 +70,6 @@ class DetailVC: UIViewController {
         attributedString.addAttribute(.foregroundColor, value: UIColor.gray, range: range)
         voteLabel.attributedText = attributedString
         
-        
-        
-        
         if let posterPath = movie.posterPath, let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500" + posterPath) {
             imageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder")) { [weak self] (_, error, _, _) in
     
