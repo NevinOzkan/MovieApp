@@ -91,17 +91,25 @@ class HomeVC: UIViewController {
     private func fetchMoreMovies() {
         if isLoading { return }
         isLoading = true
+        currentPage += 1 // Yeni sayfa isteği için currentPage'i artır
+
         
         viewModel.fetchMovies { [weak self] in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 self.isLoading = false // Yükleme tamamlandı
+                
+                // Yeni gelen filmleri ekleyin
+                self.upcomingMovies += self.viewModel.upcomingMovies
+                self.nowPlayingMovies += self.viewModel.nowPlayingMovies
+                
                 self.tableView.reloadData()
                 self.sliderCollectionView.reloadData()
             }
         }
     }
-    
+
+
         //tableviewda kullanmak için kaydettim.
         private func registerCells() {
             let nib = UINib(nibName: "UpcomingCell", bundle: nil)

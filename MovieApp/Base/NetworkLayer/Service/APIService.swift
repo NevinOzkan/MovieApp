@@ -17,8 +17,6 @@ class APIService{
             "language": "en-US",
             "page": "\(page)"
         ]
-        
-        
         AF.request(upcomingMoviesURL, parameters: parameters)
             .validate()
             .responseData { response in

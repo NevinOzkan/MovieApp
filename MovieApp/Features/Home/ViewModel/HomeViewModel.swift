@@ -55,18 +55,19 @@ class HomeViewModel {
         apiService.fetchUpcomingMovies(page: currentPage) { result in
             switch result {
             case .success(let movies):
-                print("Gelen Upcoming Filmler: \(movies)") // Burayı kontrol edin
+                print("Gelen Upcoming Filmler: \(movies)") // Burada gelen veriyi yazdır
                 DispatchQueue.main.async { [weak self] in
                     self?.upcomingMovies.append(contentsOf: movies)
                     self?.currentPage += 1
                     completion()
                 }
             case .failure(let error):
-                print("Hata: \(error)")
+                print("Failed to fetch upcoming movies: \(error)")
                 completion()
             }
         }
     }
+    
         private func fetchNowPlayingMovies(completion: @escaping () -> Void) {
             apiService.fetchNowPlayingMovies(page: currentPage) { result in
                 switch result {
