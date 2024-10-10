@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 class DetailViewModel {
     
     var movie: Movie?
@@ -23,8 +22,6 @@ class DetailViewModel {
             case .failure(let error):
                 print("Geçersiz")
                 completion(.failure(error))
-            
-                
             }
         }
     }

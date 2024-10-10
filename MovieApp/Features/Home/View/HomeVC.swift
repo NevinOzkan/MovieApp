@@ -43,10 +43,7 @@ class HomeVC: UIViewController {
 
             pageControl.numberOfPages = nowPlayingMovies.count
             pageControl.currentPage = 0
-           
     
-            
-            // Pull to refresh için refreshControl ekleyin
                 tableView.refreshControl = refreshControl
                 refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
             
@@ -73,32 +70,27 @@ class HomeVC: UIViewController {
                 self.activity.stopAnimating()
                 self.activity.isHidden = true
 
-                // Verileri güncelle
                 self.upcomingMovies = self.viewModel.upcomingMovies
                 self.nowPlayingMovies = self.viewModel.nowPlayingMovies
                 
                 // Eğer veriler boşsa hata mesajı gösterin veya başka bir işlem yapın
                 if self.upcomingMovies.isEmpty && self.nowPlayingMovies.isEmpty {
-                    print("Veri alınamadı") // Hata mesajını konsola yazdır
-                    // Burada kullanıcıya bir uyarı verebilirsiniz.
+                    print("Veri alınamadı")
                 } else {
                     self.pageControl.numberOfPages = self.nowPlayingMovies.count
                     
-                    // TableView ve CollectionView'ı güncelleyin
                     self.tableView.reloadData()
                     self.sliderCollectionView.reloadData()
                 }
 
-                // Yenileme kontrolünü durdur
-                self.refreshControl.endRefreshing() // Burayı doğru konumda çağırın
+                self.refreshControl.endRefreshing()
             }
         }
     }
     
     private func fetchMoreMovies() {
-        // Sayfa numarasını kontrol edin, daha fazla veri çekip çekmeyeceğinizi belirleyin
-        if isLoading { return } // Eğer yükleniyorsa çık
-        isLoading = true // Yükleme başladığını belirt
+        if isLoading { return }
+        isLoading = true
         
         viewModel.fetchMovies { [weak self] in
             DispatchQueue.main.async {
@@ -116,7 +108,7 @@ class HomeVC: UIViewController {
             tableView.register(nib, forCellReuseIdentifier: "UpcomingCell")
             
             let collectionNib = UINib(nibName: "MovieCollectionViewCell", bundle: nil)
-            sliderCollectionView.register(collectionNib, forCellWithReuseIdentifier: "MovieCollectionViewCell")  // Bu satırı kontrol et
+            sliderCollectionView.register(collectionNib, forCellWithReuseIdentifier: "MovieCollectionViewCell")
         }
     }
 
@@ -147,7 +139,6 @@ class HomeVC: UIViewController {
             let height = scrollView.frame.size.height
             
             if scrollView == tableView && offsetY > contentHeight - height {
-                // TableView'ın altına ulaşıldı
                 fetchMoreMovies()
             }
         }

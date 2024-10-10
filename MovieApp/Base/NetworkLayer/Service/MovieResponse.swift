@@ -7,7 +7,6 @@
 
 import Foundation
 
-
 struct MovieResponse: Decodable {
     let dates: Dates
     let page: Int

@@ -66,8 +66,6 @@ class APIService{
             }
     }
     
-    
-    // Yeni eklediğimiz film detaylarını çekmek için API fonksiyonu
     func fetchMovieDetails(movieID: Int, completion: @escaping (Result<Movie, Error>) -> Void) {
         let movieDetailsURL = "\(Constants.URL.movieDetailUrl)\(movieID)?api_key=\(Constants.API.apiKey)"
         

@@ -62,18 +62,16 @@ class HomeViewModel {
                     completion()
                 }
             case .failure(let error):
-                print("Hata: \(error)") // Burayı kontrol edin
+                print("Hata: \(error)")
                 completion()
             }
         }
     }
-    
-        // Now Playing Movies için API çağrısı
         private func fetchNowPlayingMovies(completion: @escaping () -> Void) {
             apiService.fetchNowPlayingMovies(page: currentPage) { result in
                 switch result {
                 case .success(let movies):
-                    print("Gelen NowPlaying Filmler: \(movies)") // Burayı kontrol edin
+                    print("Gelen NowPlaying Filmler: \(movies)")
                     DispatchQueue.main.async { [weak self] in
                         self?.nowPlayingMovies.append(contentsOf: movies)
                         self?.currentPage += 1
