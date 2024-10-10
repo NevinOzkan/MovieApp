@@ -19,6 +19,7 @@ class HomeVC: UIViewController {
         private var isLoading = false // Yükleniyor durumu
         private var upcomingMovies = [Movie]()
         private var nowPlayingMovies = [Movie]()
+       private let refreshControl = UIRefreshControl()
             
         
         override func viewDidLoad() {
@@ -43,47 +44,71 @@ class HomeVC: UIViewController {
             pageControl.numberOfPages = nowPlayingMovies.count
             pageControl.currentPage = 0
            
-            activity.isHidden = true
+    
+            
+            // Pull to refresh için refreshControl ekleyin
+                tableView.refreshControl = refreshControl
+                refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
             
         }
     
+    @objc private func refreshData() {
+        currentPage = 1
+        viewModel.upcomingMovies.removeAll()
+        viewModel.nowPlayingMovies.removeAll()
+        fetchMovies()
+    }
+
     private func fetchMovies() {
         activity.isHidden = false
         activity.startAnimating()
+
+        // Verileri çekmeden önce mevcut verileri temizleyin (özellikle pull-to-refresh sırasında)
+        self.upcomingMovies.removeAll()
+        self.nowPlayingMovies.removeAll()
         
         viewModel.fetchMovies { [weak self] in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 self.activity.stopAnimating()
                 self.activity.isHidden = true
-                
-                // Verileri viewModel'den alalım
+
+                // Verileri güncelle
                 self.upcomingMovies = self.viewModel.upcomingMovies
                 self.nowPlayingMovies = self.viewModel.nowPlayingMovies
                 
-                self.pageControl.numberOfPages = self.nowPlayingMovies.count
-                self.tableView.reloadData()
-                self.sliderCollectionView.reloadData()
+                // Eğer veriler boşsa hata mesajı gösterin veya başka bir işlem yapın
+                if self.upcomingMovies.isEmpty && self.nowPlayingMovies.isEmpty {
+                    print("Veri alınamadı") // Hata mesajını konsola yazdır
+                    // Burada kullanıcıya bir uyarı verebilirsiniz.
+                } else {
+                    self.pageControl.numberOfPages = self.nowPlayingMovies.count
+                    
+                    // TableView ve CollectionView'ı güncelleyin
+                    self.tableView.reloadData()
+                    self.sliderCollectionView.reloadData()
+                }
+
+                // Yenileme kontrolünü durdur
+                self.refreshControl.endRefreshing() // Burayı doğru konumda çağırın
             }
         }
     }
     
     private func fetchMoreMovies() {
-            // Daha fazla veri çekmek için ViewModel'deki mevcut sayfa numarasını artırıyoruz
-            viewModel.fetchMovies { [weak self] in
-                DispatchQueue.main.async {
-                    guard let self = self else { return }
-                    
-                    // Yeni veriler geldikten sonra tabloyu yeniden yükle
-                    self.upcomingMovies = self.viewModel.upcomingMovies
-                    self.nowPlayingMovies = self.viewModel.nowPlayingMovies
-                    
-                    self.tableView.reloadData()
-                    self.sliderCollectionView.reloadData()
-                    self.isLoading = false
-                }
+        // Sayfa numarasını kontrol edin, daha fazla veri çekip çekmeyeceğinizi belirleyin
+        if isLoading { return } // Eğer yükleniyorsa çık
+        isLoading = true // Yükleme başladığını belirt
+        
+        viewModel.fetchMovies { [weak self] in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                self.isLoading = false // Yükleme tamamlandı
+                self.tableView.reloadData()
+                self.sliderCollectionView.reloadData()
             }
         }
+    }
     
         //tableviewda kullanmak için kaydettim.
         private func registerCells() {
@@ -117,18 +142,15 @@ class HomeVC: UIViewController {
         }
         
         func scrollViewDidScroll(_ scrollView: UIScrollView) {
-                let offsetY = scrollView.contentOffset.y
-                let contentHeight = scrollView.contentSize.height
-                let height = scrollView.frame.size.height
-                
-                if scrollView == tableView && offsetY > contentHeight - height {
-                    // TableView'ın altına ulaşıldı
-                    if !isLoading {
-                        isLoading = true
-                        fetchMoreMovies()
-                    }
-                }
+            let offsetY = scrollView.contentOffset.y
+            let contentHeight = scrollView.contentSize.height
+            let height = scrollView.frame.size.height
+            
+            if scrollView == tableView && offsetY > contentHeight - height {
+                // TableView'ın altına ulaşıldı
+                fetchMoreMovies()
             }
+        }
         
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             let movie = upcomingMovies[indexPath.row]

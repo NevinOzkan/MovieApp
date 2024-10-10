@@ -19,8 +19,6 @@ class MovieCollectionViewCell: UICollectionViewCell {
         super.awakeFromNib()
         
     }
-    
-    
     func prepareCell(with model: Movie) {
         movieTitle.text = model.title
         movieOverview.text = model.overview
@@ -29,6 +27,4 @@ class MovieCollectionViewCell: UICollectionViewCell {
             imageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder"))
         }
     }
-
-
 }

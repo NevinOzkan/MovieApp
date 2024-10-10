@@ -22,7 +22,11 @@ class HomeViewModel {
     private var isFetchingMovies = false
 
         public var cellTypes: [CellType] = []
-        
+    
+    // Sayfa numarasını sıfırlamak için fonksiyon
+        func resetPageNumber() {
+            currentPage = 1
+        }
     func fetchMovies(completion: @escaping () -> Void) {
         guard !isFetchingMovies else { return }
         isFetchingMovies = true
@@ -32,14 +36,12 @@ class HomeViewModel {
         group.enter()
         fetchNowPlayingMovies { [weak self] in
             self?.cellTypes.append(.nowPlaying)
-            print("Now playing movies fetched: \(self?.nowPlayingMovies.count ?? 0)") // Print kontrolü
             group.leave()
         }
         
         group.enter()
         fetchUpcomingMovies { [weak self] in
             self?.cellTypes.append(.upcoming)
-            print("Upcoming movies fetched: \(self?.upcomingMovies.count ?? 0)") // Print kontrolü
             group.leave()
         }
         
@@ -49,28 +51,29 @@ class HomeViewModel {
         }
     }
     
-    // Upcoming Movies için API çağrısı
-        private func fetchUpcomingMovies(completion: @escaping () -> Void) {
-            apiService.fetchUpcomingMovies(page: currentPage) { result in
-                switch result {
-                case .success(let movies):
-                    DispatchQueue.main.async { [weak self] in
-                        self?.upcomingMovies.append(contentsOf: movies)
-                        self?.currentPage += 1
-                        completion()
-                    }
-                case .failure(let error):
-                    print("Failed to fetch upcoming movies: \(error)")
+    private func fetchUpcomingMovies(completion: @escaping () -> Void) {
+        apiService.fetchUpcomingMovies(page: currentPage) { result in
+            switch result {
+            case .success(let movies):
+                print("Gelen Upcoming Filmler: \(movies)") // Burayı kontrol edin
+                DispatchQueue.main.async { [weak self] in
+                    self?.upcomingMovies.append(contentsOf: movies)
+                    self?.currentPage += 1
                     completion()
                 }
+            case .failure(let error):
+                print("Hata: \(error)") // Burayı kontrol edin
+                completion()
             }
         }
-        
+    }
+    
         // Now Playing Movies için API çağrısı
         private func fetchNowPlayingMovies(completion: @escaping () -> Void) {
             apiService.fetchNowPlayingMovies(page: currentPage) { result in
                 switch result {
                 case .success(let movies):
+                    print("Gelen NowPlaying Filmler: \(movies)") // Burayı kontrol edin
                     DispatchQueue.main.async { [weak self] in
                         self?.nowPlayingMovies.append(contentsOf: movies)
                         self?.currentPage += 1

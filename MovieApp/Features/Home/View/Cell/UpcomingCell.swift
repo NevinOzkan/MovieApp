@@ -17,11 +17,11 @@ class UpcomingCell: UITableViewCell {
     
     var movie: Movie?
     
-    
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        
     }
+    
     //Cell içinde görünecekler.
     func prepareCell(with model: Movie) {
         titleLabel.text = model.title
@@ -30,8 +30,6 @@ class UpcomingCell: UITableViewCell {
         
         if let imageUrl = URL(string: "https://image.tmdb.org/t/p/w500" + model.posterPath!) {
             movieImageView.sd_setImage(with: imageUrl, placeholderImage: UIImage(named: "placeholder"))
-            
-            
         }
     }
     
