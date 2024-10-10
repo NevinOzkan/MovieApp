@@ -10,6 +10,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="HomeVC" customModule="MovieApp" customModuleProvider="target">
             <connections>
+                <outlet property="activity" destination="4Ql-dK-u8m" id="xJ7-i8-Amw"/>
                 <outlet property="pageControl" destination="K0d-Dt-XVs" id="Pq5-lY-U3M"/>
                 <outlet property="sliderCollectionView" destination="H5N-Gt-rMF" id="JYy-jf-KLs"/>
                 <outlet property="tableView" destination="Xy1-EV-OdS" id="3tE-wt-RRD"/>
@@ -41,6 +42,10 @@
                     <rect key="frame" x="29" y="265" width="334" height="26"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                 </pageControl>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="4Ql-dK-u8m">
+                    <rect key="frame" x="186" y="416" width="20" height="20"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

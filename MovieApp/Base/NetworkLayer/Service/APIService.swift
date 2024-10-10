@@ -41,6 +41,10 @@ class APIService{
     func fetchNowPlayingMovies(page: Int, completion: @escaping (Result<[Movie], Error>) -> Void) {
         
         let nowPlayingMoviesURL = "\(Constants.URL.nowPlayingUrl)?api_key=\(Constants.API.apiKey)\(Constants.Params.page)\(page)"
+        let parameters: [String: String] = [
+            "language": "en-US",
+            "page": "\(page)"
+        ]
         
         // Alamofire ile istek yap
         AF.request(nowPlayingMoviesURL)
