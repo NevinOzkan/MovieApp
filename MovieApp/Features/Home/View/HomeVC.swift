@@ -170,7 +170,7 @@ class HomeVC: UIViewController {
         
         func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
             guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MovieCollectionViewCell", for: indexPath) as? MovieCollectionViewCell else {
-                fatalError("Error dequeuing cell: MovieCollectionViewCell")
+                fatalError("Error : MovieCollectionViewCell")
             }
             
             let movie = nowPlayingMovies[indexPath.row]

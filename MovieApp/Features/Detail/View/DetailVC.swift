@@ -16,7 +16,7 @@ class DetailVC: UIViewController, UIGestureRecognizerDelegate {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var voteLabel: UILabel!
     
-    var movie: Movie?
+   
     var movieID: Int?
     private var viewModel = DetailViewModel()
     
@@ -45,8 +45,7 @@ class DetailVC: UIViewController, UIGestureRecognizerDelegate {
         viewModel.fetchMovieDetails(movieID: movieID) { [weak self] result in
             DispatchQueue.main.async {
                 switch result {
-                case .success(let movie):
-                    self?.movie = movie
+                case .success(_):
                     self?.setupUI()
                 case .failure(let error):
                     self?.showAlert(message: "Hata: \(error.localizedDescription)")
@@ -56,7 +55,7 @@ class DetailVC: UIViewController, UIGestureRecognizerDelegate {
     }
     
     private func setupUI() {
-        guard let movie = movie else { return }
+        guard let movie = viewModel.movie else { return }
         
         titleLabel.text = movie.title
         dateLabel.text = formatDateString(movie.releaseDate)
