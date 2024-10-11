@@ -17,6 +17,7 @@ struct Constants {
     }
     
     struct Params {
+        //API çağrılarına sayfa numarasını eklemek için 
         static let page = "&page="
         static let language = "&language="
     }

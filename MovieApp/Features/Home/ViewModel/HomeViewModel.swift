@@ -14,7 +14,6 @@ class HomeViewModel {
            case upcoming
        }
        
-    
     private let apiService = APIService()
     public var upcomingMovies: [Movie] = []
     public var nowPlayingMovies: [Movie] = []
@@ -23,10 +22,11 @@ class HomeViewModel {
 
         public var cellTypes: [CellType] = []
     
-    // Sayfa numarasını sıfırlamak için fonksiyon
+    // Sayfa numarasını sıfırlamak
         func resetPageNumber() {
             currentPage = 1
         }
+    
     func fetchMovies(completion: @escaping () -> Void) {
         guard !isFetchingMovies else { return }
         isFetchingMovies = true
@@ -55,7 +55,7 @@ class HomeViewModel {
         apiService.fetchUpcomingMovies(page: currentPage) { result in
             switch result {
             case .success(let movies):
-                print("Gelen Upcoming Filmler: \(movies)") // Burada gelen veriyi yazdır
+                print("Gelen Upcoming Filmler: \(movies)")
                 DispatchQueue.main.async { [weak self] in
                     self?.upcomingMovies.append(contentsOf: movies)
                     self?.currentPage += 1

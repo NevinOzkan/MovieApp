@@ -40,6 +40,7 @@ class DetailVC: UIViewController, UIGestureRecognizerDelegate {
         self.navigationController?.interactivePopGestureRecognizer?.isEnabled = true
         
     }
+    
     private func displayMovieDetail(movieID: Int) {
         viewModel.fetchMovieDetails(movieID: movieID) { [weak self] result in
             DispatchQueue.main.async {

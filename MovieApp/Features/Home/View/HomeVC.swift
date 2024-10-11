@@ -16,38 +16,46 @@ class HomeVC: UIViewController {
     
         var viewModel = HomeViewModel()
         var currentPage = 1
-        private var isLoading = false // Yükleniyor durumu
+        private var isLoading = false
         private var upcomingMovies = [Movie]()
         private var nowPlayingMovies = [Movie]()
-       private let refreshControl = UIRefreshControl()
+        private let refreshControl = UIRefreshControl()
             
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+        registerCells()
+        fetchMovies()
+    }
+
+    private func setupUI() {
+        tableView.delegate = self
+        tableView.dataSource = self
         
-        override func viewDidLoad() {
-            super.viewDidLoad()
-            registerCells()
-            fetchMovies()
-                   
-            tableView.delegate = self
-            tableView.dataSource = self
-            
-            sliderCollectionView.delegate = self
-            sliderCollectionView.dataSource = self
+        sliderCollectionView.delegate = self
+        sliderCollectionView.dataSource = self
+        
+        setupSliderCollectionViewLayout()
+        
+        pageControl.numberOfPages = nowPlayingMovies.count
+        pageControl.currentPage = 0
+        
+        setupRefreshControl()
+    }
 
-            if let layout = sliderCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-                   layout.scrollDirection = .horizontal // Yatay kaydırma
-                   layout.minimumLineSpacing = 0 // Hücreler arasındaki boşluk sıfır
-                   layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 250) // Hücre boyutu
-               }
-            
-            sliderCollectionView.isPagingEnabled = true // Sayfaları geçiş yaparken tam kapsama
-
-            pageControl.numberOfPages = nowPlayingMovies.count
-            pageControl.currentPage = 0
-    
-                tableView.refreshControl = refreshControl
-                refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
-            
+    private func setupSliderCollectionViewLayout() {
+        if let layout = sliderCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            layout.scrollDirection = .horizontal
+            layout.minimumLineSpacing = 0
+            layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: 250)
+            sliderCollectionView.isPagingEnabled = true
         }
+    }
+
+    private func setupRefreshControl() {
+        tableView.refreshControl = refreshControl
+        refreshControl.addTarget(self, action: #selector(refreshData), for: .valueChanged)
+    }
     
     @objc private func refreshData() {
         currentPage = 1
@@ -60,7 +68,6 @@ class HomeVC: UIViewController {
         activity.isHidden = false
         activity.startAnimating()
 
-        // Verileri çekmeden önce mevcut verileri temizleyin (özellikle pull-to-refresh sırasında)
         self.upcomingMovies.removeAll()
         self.nowPlayingMovies.removeAll()
         
@@ -73,12 +80,10 @@ class HomeVC: UIViewController {
                 self.upcomingMovies = self.viewModel.upcomingMovies
                 self.nowPlayingMovies = self.viewModel.nowPlayingMovies
                 
-                // Eğer veriler boşsa hata mesajı gösterin veya başka bir işlem yapın
                 if self.upcomingMovies.isEmpty && self.nowPlayingMovies.isEmpty {
                     print("Veri alınamadı")
                 } else {
                     self.pageControl.numberOfPages = self.nowPlayingMovies.count
-                    
                     self.tableView.reloadData()
                     self.sliderCollectionView.reloadData()
                 }
@@ -91,15 +96,15 @@ class HomeVC: UIViewController {
     private func fetchMoreMovies() {
         if isLoading { return }
         isLoading = true
-        currentPage += 1 // Yeni sayfa isteği için currentPage'i artır
+        currentPage += 1 
 
         
         viewModel.fetchMovies { [weak self] in
             DispatchQueue.main.async {
                 guard let self = self else { return }
-                self.isLoading = false // Yükleme tamamlandı
+                self.isLoading = false
                 
-                // Yeni gelen filmleri ekleyin
+                // Yeni gelen filmleri ekle
                 self.upcomingMovies += self.viewModel.upcomingMovies
                 self.nowPlayingMovies += self.viewModel.nowPlayingMovies
                 
@@ -108,8 +113,6 @@ class HomeVC: UIViewController {
             }
         }
     }
-
-
         //tableviewda kullanmak için kaydettim.
         private func registerCells() {
             let nib = UINib(nibName: "UpcomingCell", bundle: nil)
@@ -188,6 +191,4 @@ class HomeVC: UIViewController {
             let pageIndex = Int(scrollView.contentOffset.x / scrollView.frame.size.width)
             pageControl.currentPage = pageIndex
         }
-    
-
     }
